@@ -1,0 +1,5 @@
+.DS_Store
+.idea/*
+application/vendor/
+database/mysql/
+application/composer.lock
