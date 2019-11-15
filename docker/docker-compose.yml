@@ -1,0 +1,48 @@
+version: "3.7"
+
+services:
+
+  #Data persistence service layer
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_PASSWORD: root
+      MYSQL_DATABASE: event
+    volumes:
+      - ../database/mysql:/var/lib/mysql
+      - ../database/dump:/home/dump
+    ports:
+      - "3306:3306"
+
+  #Application and web service layer
+  php:
+    build:
+      context: ./images/php
+    restart: always
+    volumes:
+      - ./images/php/:/usr/local/etc/php/
+      - ./images/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ../application:/var/www/html
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - mysql
+
+  #Phpmyadmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_PASSWORD: root
+    restart: always
+    ports:
+      - 8080:80
+    depends_on:
+      - mysql
