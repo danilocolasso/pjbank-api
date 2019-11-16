@@ -17,3 +17,11 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->email,
     ];
 });
+
+$factory->define(App\Product::class, function (Faker\Generator $faker) {
+    return [
+        'name'      => $faker->name,
+        'quantity'  => rand(0, 100),
+        'price'     => $faker->randomFloat(2, 0.5, 200)
+    ];
+});
