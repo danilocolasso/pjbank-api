@@ -12,7 +12,7 @@
 */
 
 
-$router->group(['prefix' => 'api'], function() use($router) {
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function() use($router) {
     $router->get('products', ['uses' => 'productController@index']);
     $router->get('product/{id}', ['uses' => 'productController@show']);
     $router->post('order', ['uses' => 'OrderController@create']);

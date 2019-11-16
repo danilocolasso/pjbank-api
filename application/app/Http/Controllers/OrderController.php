@@ -47,6 +47,7 @@ class OrderController extends Order
         $order->price = $order->products()->sum('price');
         $order->save();
 
+        return response()->json($order);
         return $this->getBoleto($order);
     }
 
