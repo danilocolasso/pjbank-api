@@ -3,3 +3,4 @@
 application/vendor/
 database/mysql/
 application/composer.lock
+application/.phpunit.result.cache
